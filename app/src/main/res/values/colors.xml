@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_color">#F0A675</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#EFFB08</color>
+    <color name="black">#303030</color>
+    <color name="grey">#C6C6C6</color>
+    <color name="action_bar_bg">#F6F6F6</color>
+    <color name="divide">#E2E2E2</color>
+    <color name="comment">#777777</color>
+
+    <color name="send_comment_normal_bg">#D4D4D4</color>
+    <color name="send_comment_press_bg">#6FD27D</color>
+
+    <color name="follow_dialog_bg">#91C479</color>
+</resources>
