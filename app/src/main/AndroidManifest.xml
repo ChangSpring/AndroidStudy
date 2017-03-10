@@ -35,8 +35,6 @@
         </activity>
         <activity android:name=".graphics.FirstActivity">
         </activity>
-        <activity android:name=".graphics.PathActivity">
-        </activity>
         <activity android:name=".graphics.RangeActivity">
         </activity>
         <activity android:name=".graphics.CanvasActivity">
@@ -45,13 +43,13 @@
         </activity>
         <activity android:name=".graphics.QuadActivity">
         </activity>
-        <activity android:name=".rxjava.RxJavaActivity">
+        <activity android:name=".rxjava.RxJavaActivity"/>
+        <activity android:name=".graphics.PaintActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
     </application>
 
