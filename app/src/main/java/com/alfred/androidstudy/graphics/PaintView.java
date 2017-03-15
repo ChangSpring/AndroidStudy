@@ -226,6 +226,9 @@ public class PaintView extends View {
         valueAnimator.start();
     }
 
+    /**
+     * 离散路径效果
+     */
 
 
 

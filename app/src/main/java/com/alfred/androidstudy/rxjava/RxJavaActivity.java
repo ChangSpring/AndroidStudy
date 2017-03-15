@@ -128,7 +128,7 @@ public class RxJavaActivity extends AppCompatActivity {
       //创建Observable的其他方式
 
       //just(T...)
-      Observable observable1 = Observable.just("Helll", " World", " !");
+      Observable observable1 = Observable.just("Hello", " World", " !");
 
       //from(T[])
       String[] words = {"Hello", "World", "!"};
