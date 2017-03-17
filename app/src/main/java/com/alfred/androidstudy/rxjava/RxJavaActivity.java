@@ -284,6 +284,8 @@ public class RxJavaActivity extends AppCompatActivity {
 //                });
 
       //flatMap()和map()方法的区别:flatMap()也是把传入的参数转化之后返回另一个对象,但是和map()不同的是,flatMap()返回的是Observable对象,并且这个对象并不是直接发送到了Subscriber的回调方法中
+      //map()是一对一的转化,flatMap()是一对多的转化
+
 
       //observerOn()指定的是Subscriber的线程,而这个Subscriber并不是Subscribe()参数中的Subscriber,而是observeOn()执行时的当前Observable所对应的Subscriber,即他的直接下级Subscriber.
       //换句话说,observeOn()指定的是它之后的操作所在的线程,因此如果有多次切换线程的需求,只要在每个想要切换线程的位置调用一次observeOn()即可

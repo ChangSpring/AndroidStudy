@@ -16,9 +16,10 @@ import rx.functions.Action1;
 import rx.functions.Func0;
 
 /**
+ * 创建Observable的多种方式
  * 其原理就是创建一个Observable对象来干活，然后使用各种操作符建立起来的链式操作，就如同流水线一样把你想要处理的数据一步一步地加工成你想要的成品然后发射(emit)给Subscriber(Observer)
  */
-public class RxJavaOperatorActivity extends AppCompatActivity {
+public class RxJavaOperatorObservableCreatedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

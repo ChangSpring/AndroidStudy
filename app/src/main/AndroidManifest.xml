@@ -55,7 +55,15 @@
         </activity>
         <activity android:name=".dragger2.Dragger2Activity">
         </activity>
-        <activity android:name=".rxjava.RxJavaOperatorActivity">
+        <activity android:name=".rxjava.RxJavaOperatorObservableCreatedActivity">
+        </activity>
+        <activity android:name=".rxjava.RxJavaOperatorObservableTransformActivity">
+        </activity>
+        <activity android:name=".rxjava.RxJavaOperatorFilteringActivity">
+        </activity>
+        <activity android:name=".rxjava.RxJavaOperatorCombiningActivity">
+        </activity>
+        <activity android:name=".rxjava.RxJavaOperatorErrorHandlingActivity">
         </activity>
     </application>
 
