@@ -15,6 +15,7 @@ import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alfred.androidstudy.DensityUtils;
 import com.alfred.androidstudy.R;
 
 import butterknife.Bind;
@@ -48,11 +49,13 @@ public class PropertyAnimatorActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-//        mMyPointView.startAnimator();
+        mMyPointView.startAnimator();
 
-        studyValueAnimtor2();
+//        studyValueAnimator2();
+//        studyValueAnimator();
+//        doPointViewAnimator();
 
-        doPointViewAnimator();
+        studyObjectAnimator();
 
     }
 
@@ -62,7 +65,35 @@ public class PropertyAnimatorActivity extends AppCompatActivity {
         animator.start();
     }
 
-    private void studyValueAnimtor2() {
+    private void studyValueAnimator() {
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 10f);
+        valueAnimator.setDuration(300);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                Log.i(TAG, "current value is  " + (float) valueAnimator.getAnimatedValue());
+                Log.i(TAG, "current fraction is " + valueAnimator.getAnimatedFraction());
+            }
+        });
+        valueAnimator.start();
+        //设置动画播放次数
+        valueAnimator.setRepeatCount(3);
+        //设置动画的循环模式 RESTART 重新播放 REVERSE 倒序播放
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        //设置动画的延时播放时间
+        valueAnimator.setStartDelay(1000);
+
+        // TypeEvaluator(为什么没有效果)
+//        AnimationPoint startPoint = new AnimationPoint(0, 0);
+//        AnimationPoint endPoint = new AnimationPoint(1000, 1000);
+//        ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
+//        animator.setDuration(5000);
+//        animator.setTarget(textView);
+//        animator.start();
+    }
+
+
+    private void studyValueAnimator2() {
         //        final ValueAnimator valueAnimator = ValueAnimator.ofInt(0, 700);
 //        final ValueAnimator valueAnimator = ValueAnimator.ofInt(0xffffff00,0xff0000ff);
         final ValueAnimator valueAnimator = ValueAnimator.ofObject(new CharEvaluator(), Character.valueOf('A'), Character.valueOf('Z'));
@@ -126,47 +157,28 @@ public class PropertyAnimatorActivity extends AppCompatActivity {
         });
     }
 
-    private void studyValueAnimator() {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 1f);
-        valueAnimator.setDuration(300);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                Log.i("TAG", "current value is  " + (float) valueAnimator.getAnimatedValue());
-            }
-        });
-        valueAnimator.start();
-        //设置动画播放次数
-        valueAnimator.setRepeatCount(3);
-        //设置动画的循环模式 RESTART 重新播放 REVERSE 倒序播放
-        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
-        //设置动画的延时播放时间
-        valueAnimator.setStartDelay(1000);
-
-        // TypeEvaluator(为什么没有效果)
-//        AnimationPoint startPoint = new AnimationPoint(0, 0);
-//        AnimationPoint endPoint = new AnimationPoint(1000, 1000);
-//        ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
-//        animator.setDuration(5000);
-//        animator.setTarget(textView);
-//        animator.start();
-    }
 
     private void studyObjectAnimator() {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "alpha", 1f, 0f, 1f);
-        objectAnimator.setDuration(3000);
-        objectAnimator.setStartDelay(3000);
-        objectAnimator.setRepeatCount(3);
-        objectAnimator.start();
-
-        ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(textView, "rotation", 0f, 360f);
-        objectAnimator1.setDuration(3000);
-        objectAnimator1.start();
+//        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "alpha", 1f, 0f, 1f);
+//        objectAnimator.setDuration(3000);
+//        objectAnimator.setStartDelay(3000);
+//        objectAnimator.setRepeatCount(3);
+//        objectAnimator.start();
+//
+//        ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(textView, "rotation", 0f, 360f);
+//        objectAnimator1.setDuration(3000);
+//        objectAnimator1.start();
 
         float curTranslationX = textView.getTranslationX();
-        ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(textView, "translation", curTranslationX, -550f, curTranslationX);
+        final ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(textView, "translationY", curTranslationX, DensityUtils.dp2px(this,100), curTranslationX);
         objectAnimator2.setDuration(3000);
-        objectAnimator2.start();
+
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                objectAnimator2.start();
+            }
+        });
 
     }
 

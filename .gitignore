@@ -43,3 +43,10 @@ captures/
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
+libs/
+src/main/res/drawable-hdpi/
+src/main/res/drawable-ldpi/
+src/main/res/drawable-mdpi/
+src/main/res/drawable-xxhdpi/
+src/main/res/drawable-xxxhdpi/
+src/main/res/drawable/

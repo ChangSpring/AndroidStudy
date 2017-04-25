@@ -14,12 +14,12 @@ import com.alfred.androidstudy.mvp.view.ILoginView;
  * Created by Alfred on 2017/3/17.
  */
 
-public class ILoginPresenterCompl implements ILoginPresenter{
+public class ILoginPresenterImpl implements ILoginPresenter{
     private ILoginView mILoginView;
     private IUser mIUser;
     private Handler mHandler;
 
-    public ILoginPresenterCompl(ILoginView iLoginView){
+    public ILoginPresenterImpl(ILoginView iLoginView){
         this.mILoginView = iLoginView;
         initUser();
         mHandler = new Handler(Looper.getMainLooper());

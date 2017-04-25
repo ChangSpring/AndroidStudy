@@ -96,12 +96,13 @@ public class RxJavaOperatorObservableTransformActivity extends AppCompatActivity
      * map 变换
      */
     private void map() {
-        Observable.just(1, 2, 3, 4, 5, 6, 6, 7, 8, 9).map(new Func1<Integer, Integer>() {
-            @Override
-            public Integer call(Integer integer) {
-                return integer * 10;
-            }
-        }).subscribe(new Action1<Integer>() {
+        Observable.just(1, 2, 3, 4, 5, 6, 6, 7, 8, 9)
+                .map(new Func1<Integer, Integer>() {
+                    @Override
+                    public Integer call(Integer integer) {
+                        return integer * 10;
+                    }
+                }).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
                 Logger.i("map number = " + integer);

@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.alfred.androidstudy.R;
 import com.alfred.androidstudy.mvp.presenter.ILoginPresenter;
-import com.alfred.androidstudy.mvp.presenter.ILoginPresenterCompl;
+import com.alfred.androidstudy.mvp.presenter.ILoginPresenterImpl;
 import com.alfred.androidstudy.mvp.view.ILoginView;
 
 import butterknife.Bind;
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView,View.
 
         ButterKnife.bind(this);
 
-        mILoginPresenter = new ILoginPresenterCompl(this);
+        mILoginPresenter = new ILoginPresenterImpl(this);
         mILoginPresenter.setProgressBarVisibility(View.INVISIBLE);
 
     }

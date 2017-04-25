@@ -38,9 +38,9 @@ public class CanvasView extends View {
 //        translateCanvas(canvas);
 //        rotateCanvas(canvas);
 //            scaleCanvas(canvas);
-//        skewCanvas(canvas);
+        skewCanvas(canvas);
 //        clipCanvas(canvas);
-        saveRestoreCanvas(canvas);
+//        saveRestoreCanvas(canvas);
 
     }
 
