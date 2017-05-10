@@ -29,7 +29,7 @@ public class RxJavaOperatorErrorHandlingActivity extends AppCompatActivity {
      * onErrorReturn操作符,当发生错误的时候,让Observable发射一个预先定义好的数据并正常停止
      */
     private void onErrorReturn(){
-        createObservable(false).onErrorReturn(new Func1<Throwable, String>() {
+        createObservable(false).onErrorReturn(  new Func1<Throwable, String>() {
             @Override
             public String call(Throwable throwable) {
                 return "onErrorReturn";
@@ -77,7 +77,10 @@ public class RxJavaOperatorErrorHandlingActivity extends AppCompatActivity {
     }
 
     /**
-     * OnExcceptionResumeNext操作符,类似于onErrorResume,不同之处在于其会对onError抛出的数据类型做判断,如果是Exception,也会使用另外一个Observable代替原Observable继续发射数据,否则将会把错误分发给Subscriber
+     * OnExceptionResumeNext操作符
+     * 类似于onErrorResumeNext
+     * 区别是onErrorResumeNext操作符是当Observable发生错误时触发,而onExceptionResumeNext是当Observable发生异常时触发
+     * 换句话说就是如果onError收到的Throwable不是一个Exception,他会将错误传递给观察者的onError方法,不会使用备用的Observable
      */
     private void onExceptionResumeNext(){
         createObservable(true).onExceptionResumeNext(Observable.just("7","8","9")).subscribe(new Subscriber<String>() {

@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,12 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-
         </activity>
         <activity android:name=".animation.AnimationAttributeActivity">
         </activity>
@@ -49,15 +45,20 @@
         <activity android:name=".graphics.RangeActivity">
         </activity>
         <activity android:name=".graphics.CanvasActivity">
-
         </activity>
         <activity android:name=".graphics.TextActivity">
-
         </activity>
         <activity android:name=".graphics.QuadActivity">
-
         </activity>
         <activity android:name=".rxjava.RxJavaActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".rxjava.RxJavaWarActivity">
         </activity>
         <activity android:name=".graphics.PaintActivity">
         </activity>
@@ -78,6 +79,14 @@
         <activity
             android:name=".mvp.LoginActivity"
             android:label="@string/title_activity_login">
+        </activity>
+        <activity
+            android:name=".design.ItemDetailActivity">
+      </activity>
+        <activity android:name=".design.ToolBarActivity">
+        </activity>
+        <activity android:name=".design.DesignActivity">
+
         </activity>
     </application>
 

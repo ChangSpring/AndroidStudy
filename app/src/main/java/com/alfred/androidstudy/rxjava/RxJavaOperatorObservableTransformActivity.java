@@ -2,12 +2,15 @@ package com.alfred.androidstudy.rxjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.alfred.androidstudy.R;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -17,12 +20,16 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.observables.GroupedObservable;
+import rx.schedulers.Schedulers;
 
 /**
  * Observable转化
  * 我们可能需要将创建的Observable安装某种规则转化一下来发射数据
  */
 public class RxJavaOperatorObservableTransformActivity extends AppCompatActivity {
+    List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
+
+    public static final String TAG = RxJavaOperatorObservableTransformActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +115,72 @@ public class RxJavaOperatorObservableTransformActivity extends AppCompatActivity
                 Logger.i("map number = " + integer);
             }
         });
+    }
+
+    /**
+     * flatMap变换
+     * 同步 对发射顺序没有影响
+     * 异步 不保证发射顺序
+     */
+    private void flatMap() {
+        Observable.from(numbers)
+                .flatMap(new Func1<Integer, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Integer integer) {
+                        //异步导致顺序错乱
+                        return Observable.just(integer + "0").subscribeOn(Schedulers.from(Executors.newCachedThreadPool()));
+//                        return Observable.just(integer + "0");
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.i(TAG, "flatmap = " + s);
+                    }
+                });
+    }
+
+    /**
+     * 保证发射顺序
+     */
+    private void concatMap() {
+        //concatmap()保证顺序发射
+        Observable.from(numbers)
+                .concatMap(new Func1<Integer, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Integer integer) {
+                        return Observable.just(integer + "0").subscribeOn(Schedulers.from(Executors.newCachedThreadPool()));
+//                        return Observable.just(integer + "0");
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.i(TAG, "concatmap = " + s);
+                    }
+                });
+
+    }
+
+    /**
+     * 在同步线程中,switchMap发射所有的Observable
+     * 在异步线程中,switchMap只会发射最近的Observable
+     */
+    private void switchMap() {
+        Observable.from(numbers)
+                .switchMap(new Func1<Integer, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Integer integer) {
+//                        return Observable.just(integer + "0").subscribeOn(Schedulers.from(Executors.newCachedThreadPool()));
+                        return Observable.just(integer + "0");
+                    }
+                })
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.i(TAG, "switchmap = " + s);
+                    }
+                });
     }
 
     /**

@@ -2,6 +2,7 @@ package com.alfred.androidstudy.rxjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.alfred.androidstudy.R;
 import com.orhanobut.logger.Logger;
@@ -20,10 +21,14 @@ import rx.schedulers.Schedulers;
  */
 public class RxJavaOperatorFilteringActivity extends AppCompatActivity {
 
+    public static final String TAG = "Activity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_java_operator_filtering);
+
+        single();
     }
 
 
@@ -31,6 +36,8 @@ public class RxJavaOperatorFilteringActivity extends AppCompatActivity {
      * debounce操作符就是起到了限流的作用，可以理解为阀门，当你半开阀门的时候，水会以较慢的速度流出来。不同之处就是阀门里的水不会浪费掉，而debounce过滤掉的数据会被丢弃掉。在Rxjava中，将这个操作符分为了    * throttleWithTimeout和debounce两个操作符。
      * 先来看一下throttleWithTimeOut吧，这个操作符通过时间来限流，源Observable每次发射出来一个数据后就会进行计时，如果在设定好的时间结束前源Observable
      * 有新的数据发射出来，这个数据就会被丢弃，同时重新开始计时。如果每次都是在计时结束前发射数据，那么这个限流就会走向极端：只会发射最后一个数据。
+     *
+     * 休眠时间与设定好的时间相等事,结果具有不确定性
      */
     private void debounce() {
         //每隔100毫秒发射一个数据，当要发射的数据是3的倍数的时候，下一个数据就延迟到300毫秒再发射
@@ -84,6 +91,57 @@ public class RxJavaOperatorFilteringActivity extends AppCompatActivity {
                 Logger.i("distinctUntilChanged number = " + integer);
             }
         });
+    }
+
+    /**
+     * DistinctUntilChanged
+     * 去重,与Distinct的区别是,不是完全过滤,只是连续N个相同的数据,仅仅保留一个,后面的他就不管了
+     */
+    private void distinctUntilChanged(){
+        Observable.just(1,3,4,5,6,7,7,7,6,6)
+                .distinctUntilChanged()
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        Log.i(TAG,"distinctUntilChanged = " + integer);
+                    }
+                });
+    }
+
+    /**
+     * OfType
+     * 类似于filter,ofType是依据类型来过滤
+     */
+    private void ofType(){
+        Observable.just(1,"2",false,"3.0")
+                .ofType(Boolean.class)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean aBoolean) {
+                        Log.i(TAG,"oftype =  " + aBoolean);
+                    }
+                });
+    }
+
+    /**
+     * single
+     * 对源Observable发射的数据进行判断
+     * 如果返回的过滤结果数量不是1,他就抛异常java.lang.IllegalArgumentException : Sequence contains too many elements
+     */
+    private void single(){
+        Observable.just(1,2,3,4,5,6)
+                .single(new Func1<Integer, Boolean>() {
+                    @Override
+                    public Boolean call(Integer integer) {
+                        return integer > 7;
+                    }
+                })
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        Log.i(TAG,"single = " + integer);
+                    }
+                });
     }
 
     /**

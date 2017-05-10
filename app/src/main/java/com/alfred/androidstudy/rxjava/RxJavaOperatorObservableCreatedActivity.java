@@ -14,6 +14,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func0;
+import rx.schedulers.Schedulers;
 
 /**
  * 创建Observable的多种方式
@@ -132,7 +133,7 @@ public class RxJavaOperatorObservableCreatedActivity extends AppCompatActivity {
      */
     private void intervalOperator() {
         //每隔一秒钟,发射一个数字
-        Observable.interval(1, TimeUnit.SECONDS)
+        Observable.interval(1, TimeUnit.SECONDS, Schedulers.immediate())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Long>() {
                     @Override

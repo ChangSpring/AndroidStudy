@@ -12,4 +12,9 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <!--<string name="appbar_scrolling_view_behavior">appbar_scrolling_view_behavior</string>-->
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="card_string">Hello World ! Hello World ! Hello World ! Hello World ! Hello World ! Hello World ! Hello World ! Hello World ! Hello World ! </string>
 </resources>
