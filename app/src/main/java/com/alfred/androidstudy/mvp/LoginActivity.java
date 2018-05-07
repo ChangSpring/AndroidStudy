@@ -13,7 +13,7 @@ import com.alfred.androidstudy.mvp.presenter.ILoginPresenter;
 import com.alfred.androidstudy.mvp.presenter.ILoginPresenterImpl;
 import com.alfred.androidstudy.mvp.view.ILoginView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -21,15 +21,15 @@ import butterknife.OnClick;
  * 运用MVP模式实现登录功能
  */
 public class LoginActivity extends AppCompatActivity implements ILoginView,View.OnClickListener {
-    @Bind(R.id.et_account_login)
+    @BindView(R.id.et_account_login)
     EditText accountEt;
-    @Bind(R.id.et_pwd_login)
+    @BindView(R.id.et_pwd_login)
     EditText pwdEt;
-    @Bind(R.id.btn_login_login)
+    @BindView(R.id.btn_login_login)
     Button loginBtn;
-    @Bind(R.id.btn_clear_login)
+    @BindView(R.id.btn_clear_login)
     Button clearBtn;
-    @Bind(R.id.pb_load_login)
+    @BindView(R.id.pb_load_login)
     ProgressBar loadPb;
 
     ILoginPresenter mILoginPresenter;

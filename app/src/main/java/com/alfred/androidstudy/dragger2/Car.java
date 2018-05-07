@@ -12,7 +12,7 @@ public class Car {
     Engine mEngine;
 
     public Car(){
-        DaggerCarComponent.builder().build().inject(this);
+//        DaggerCarComponent.builder().build().inject(this);
     }
 
     public Engine getEngine(){

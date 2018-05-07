@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PaintActivity extends AppCompatActivity {
-    @Bind(R.id.paint_view)
+    @BindView(R.id.paint_view)
     PaintView mPaintView;
 
     @Override

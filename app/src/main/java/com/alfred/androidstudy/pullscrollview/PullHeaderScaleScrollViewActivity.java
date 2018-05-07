@@ -13,15 +13,15 @@ import android.widget.Toast;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PullHeaderScaleScrollViewActivity extends AppCompatActivity {
-    @Bind(R.id.iv_header)
+    @BindView(R.id.iv_header)
     ImageView headerIv;
-    @Bind(R.id.sv_scroll)
+    @BindView(R.id.sv_scroll)
     PullHeaderScaleScrollView mScrollView;
-    @Bind(R.id.tl_content)
+    @BindView(R.id.tl_content)
     TableLayout contentTl;
 
     @Override

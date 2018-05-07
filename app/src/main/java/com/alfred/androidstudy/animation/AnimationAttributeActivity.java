@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -22,17 +22,17 @@ import butterknife.OnClick;
  */
 
 public class AnimationAttributeActivity extends AppCompatActivity{
-    @Bind(R.id.btn_alpha)
+    @BindView(R.id.btn_alpha)
     Button alphaBtn;
-    @Bind(R.id.btn_scale)
+    @BindView(R.id.btn_scale)
     Button scaleBtn;
-    @Bind(R.id.btn_rotate)
+    @BindView(R.id.btn_rotate)
     Button rotateBtn;
-    @Bind(R.id.btn_translate)
+    @BindView(R.id.btn_translate)
     Button translateBtn;
-    @Bind(R.id.btn_set)
+    @BindView(R.id.btn_set)
     Button setBtn;
-    @Bind(R.id.iv_img)
+    @BindView(R.id.iv_img)
     ImageView imgIv;
 
     @Override

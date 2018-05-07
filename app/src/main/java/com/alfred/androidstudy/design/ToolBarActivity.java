@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  */
 
 public class ToolBarActivity extends AppCompatActivity {
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     @Override

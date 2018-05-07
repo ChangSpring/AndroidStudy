@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="PullScrollView">
-        <attr name="header" format="reference" />
-        <attr name="maxMoveHeight" format="dimension" />
+        <attr name="header" format="reference"/>
+        <attr name="maxMoveHeight" format="dimension"/>
         <attr name="headerTopHeight" format="dimension"/>
-        <attr name="headerVisibleHeight" format="dimension" />
+        <attr name="headerVisibleHeight" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeImageView">
+        <attr name="borderRadius" format="dimension"/>
+        <attr name="type">
+            <enum name="circle" value="0"/>
+            <enum name="round" value="1"/>
+        </attr>
+        <attr name="src" format="reference"/>
     </declare-styleable>
 </resources>

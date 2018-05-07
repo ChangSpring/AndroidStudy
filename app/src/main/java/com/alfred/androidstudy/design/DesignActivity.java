@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
  */
 
 public class DesignActivity extends AppCompatActivity {
-    @Bind(R.id.btn_snackbar_design)
+    @BindView(R.id.btn_snackbar_design)
     Button snackbarBtn;
-    @Bind(R.id.til_pwd_design)
+    @BindView(R.id.til_pwd_design)
     TextInputLayout pwdTil;
 
     @Override

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.alfred.androidstudy.DensityUtils;
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -30,14 +30,14 @@ import butterknife.ButterKnife;
  */
 public class PropertyAnimatorActivity extends AppCompatActivity {
 
-    @Bind(R.id.textView)
+    @BindView(R.id.textView)
     TextView textView;
-    @Bind(R.id.btn_start)
+    @BindView(R.id.btn_start)
     Button startBtn;
-    @Bind(R.id.btn_cancel)
+    @BindView(R.id.btn_cancel)
     Button cancelBtn;
 
-    @Bind(R.id.myPointView)
+    @BindView(R.id.myPointView)
     MyPointView mMyPointView;
 
     private static final String TAG = PropertyAnimatorActivity.class.getSimpleName();

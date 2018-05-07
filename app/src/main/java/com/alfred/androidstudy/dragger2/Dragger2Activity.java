@@ -1,16 +1,16 @@
 package com.alfred.androidstudy.dragger2;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Dragger2Activity extends AppCompatActivity {
-    @Bind(R.id.textView)
+    @BindView(R.id.textView)
     TextView mTextView;
 
     @Override

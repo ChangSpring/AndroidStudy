@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.textView)
+    @BindView(R.id.textView)
     TextView mTextView;
-    @Bind(R.id.button)
+    @BindView(R.id.button)
     Button button;
 
     @Override

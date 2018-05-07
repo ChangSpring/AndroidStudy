@@ -11,21 +11,21 @@ import android.widget.Button;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AnimatorXMLActivity extends AppCompatActivity {
-    @Bind(R.id.menu)
+    @BindView(R.id.menu)
     Button menuBtn;
-    @Bind(R.id.item1)
+    @BindView(R.id.item1)
     Button item1Btn;
-    @Bind(R.id.item2)
+    @BindView(R.id.item2)
     Button item2Btn;
-    @Bind(R.id.item3)
+    @BindView(R.id.item3)
     Button item3Btn;
-    @Bind(R.id.item4)
+    @BindView(R.id.item4)
     Button item4Btn;
-    @Bind(R.id.item5)
+    @BindView(R.id.item5)
     Button item5Btn;
 
     private int openRadius = 500;

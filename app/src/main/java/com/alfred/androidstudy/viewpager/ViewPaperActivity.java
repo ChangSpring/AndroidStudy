@@ -14,7 +14,7 @@ import com.alfred.androidstudy.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class ViewPaperActivity extends AppCompatActivity {
 
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
     View mView1,mView2,mView3;

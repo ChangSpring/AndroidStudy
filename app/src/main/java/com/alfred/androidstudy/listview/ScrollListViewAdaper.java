@@ -13,7 +13,7 @@ import com.alfred.androidstudy.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -68,9 +68,9 @@ public class ScrollListViewAdaper extends BaseAdapter {
     }
 
     public class ViewHolder {
-        @Bind(R.id.root_item)
+        @BindView(R.id.root_item)
         LinearLayout rootLl;
-        @Bind(R.id.title_tv)
+        @BindView(R.id.title_tv)
         TextView titleTv;
 
         public ViewHolder(View view) {

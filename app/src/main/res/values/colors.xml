@@ -16,4 +16,13 @@
     <color name="send_comment_press_bg">#6FD27D</color>
 
     <color name="follow_dialog_bg">#91C479</color>
+
+    <color name="startred">#ff4049</color>//小面积使用，用于特别需要强调和突出的文字，按钮和ICON,如立即租用，与价格相关的文字
+    <color name="startred_50">#7fff4049</color>
+    <color name="startred_10">#19FF4049</color>
+    <color name="startblue">#0a1b2b</color>//用于重要级文字信息、内页标题信息，如大板块标题，运营内容
+    <color name="startblue_75">#bf0a1b2b</color>//75%  用于普通段落，引导词
+    <color name="startblue_50">#7f0a1b2b</color>//50% 用于辅助，次要文字信息，普通 按钮描边
+    <color name="startblue_25">#3f0a1b2b</color>//25% 用于更次要级文字信息
+    <color name="startblue_5">#0c0a1b2b</color>//5% 用于分割线的底色，内容分割线，次要按钮描边
 </resources>

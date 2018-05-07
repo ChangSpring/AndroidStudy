@@ -11,7 +11,7 @@ import com.alfred.androidstudy.R;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class RxJavaWarActivity extends AppCompatActivity {
-    @Bind(R.id.tv_content_rxjava_war)
+    @BindView(R.id.tv_content_rxjava_war)
     TextView contentTv;
 
     public static final String TAG = "RxJavaWarActivity";

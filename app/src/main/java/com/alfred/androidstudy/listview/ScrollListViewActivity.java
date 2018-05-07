@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ScrollListViewActivity extends AppCompatActivity {
-    @Bind(R.id.list_view)
+    @BindView(R.id.list_view)
     ScrollListView mListView;
 
     @Override

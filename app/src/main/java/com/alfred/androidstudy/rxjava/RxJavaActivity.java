@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
@@ -42,7 +42,7 @@ import rx.Subscription;
  */
 public class RxJavaActivity extends AppCompatActivity {
 
-    @Bind(R.id.textView)
+    @BindView(R.id.textView)
     TextView mTextView;
 
     public static final String TAG = RxJavaActivity.class.getSimpleName();

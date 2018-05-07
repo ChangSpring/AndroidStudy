@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LayoutInflaterActivity extends AppCompatActivity {
-    @Bind(R.id.root)
+    @BindView(R.id.root)
     LinearLayout rootLl;
-    @Bind(R.id.click)
+    @BindView(R.id.click)
     TextView clickTv;
 
     private static final String TAG = LayoutInflaterActivity.class.getSimpleName();

@@ -9,20 +9,20 @@ import android.widget.LinearLayout;
 
 import com.alfred.androidstudy.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ScrollActivity extends AppCompatActivity {
-    @Bind(R.id.scroll_by)
+    @BindView(R.id.scroll_by)
     Button scrollByBtn;
-    @Bind(R.id.scroll_to)
+    @BindView(R.id.scroll_to)
     Button scrollToBtn;
-    @Bind(R.id.reset)
+    @BindView(R.id.reset)
     Button resetBtn;
-    @Bind(R.id.hello)
+    @BindView(R.id.hello)
     LinearLayout helloLl;
-    @Bind(R.id.ll_scroll)
+    @BindView(R.id.ll_scroll)
     LinearLayout scrollLl;
 
     private int mLastX;
