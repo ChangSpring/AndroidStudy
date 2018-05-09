@@ -84,6 +84,8 @@
         <activity android:name=".PdfPreviewActivity">
         </activity>
         <activity android:name=".AlfredActivity">
+        </activity>
+        <activity android:name=".BitmapRegionDecoderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
