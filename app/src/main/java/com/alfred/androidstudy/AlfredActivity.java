@@ -3,8 +3,6 @@ package com.alfred.androidstudy;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.alfred.androidstudy.widget.HorizontalScrollImageView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -12,8 +10,10 @@ public class AlfredActivity extends AppCompatActivity {
 
 //    @BindView(R.id.textview)
 //    HorizontalScrollTextView textview;
-    @BindView(R.id.imageview)
-    HorizontalScrollImageView imageview;
+//    @BindView(R.id.imageview)
+//    HorizontalScrollImageView imageview;
+    @BindView(R.id.splashview)
+    SplashView splashView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +32,9 @@ public class AlfredActivity extends AppCompatActivity {
 //            }
 //        });
 
-        imageview.startTranslate();
+//        imageview.startTranslate();
 
-        imageview.post(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        });
 
     }
 }

@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -64,7 +63,12 @@ public class SplashView extends View {
 
         this.mContext = context;
 
-        init();
+//        init();
+
+        mPaint = new Paint();
+        mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setMaskFilter(new BlurMaskFilter(120,BlurMaskFilter.Blur.OUTER));
     }
 
     private void init() {
@@ -139,10 +143,14 @@ public class SplashView extends View {
 //        mBgCircleRect.set(mWidth / 2 - 400 + 10, 100 + 10, mWidth / 2 + 400 - 10, 400 + 500 - 10);
 //        canvas.drawArc(mBgCircleRect, -90, -148, false, mArcPaint);
 
-        mRadialGradient = new RadialGradient(mWidth / 2,500.0f,400.0f,
-                new int[]{Color.WHITE, Color.GREEN, Color.BLUE, Color.RED},new float[]{0.8f,0.9f,0.95f,1.0f}, Shader.TileMode.REPEAT);
-        mPaint.setShader(mRadialGradient);
-        canvas.drawCircle(mWidth/2,500,400,mPaint);
+//        mRadialGradient = new RadialGradient(mWidth / 2,500.0f,400.0f,
+//                new int[]{Color.WHITE, Color.GREEN, Color.BLUE, Color.RED},new float[]{0.8f,0.9f,0.95f,1.0f}, Shader.TileMode.REPEAT);
+//        mPaint.setShader(mRadialGradient);
+//        canvas.drawCircle(mWidth/2,500,400,mPaint);
+
+        canvas.drawColor(Color.BLACK);
+        setLayerType(LAYER_TYPE_SOFTWARE,null);
+        canvas.drawCircle(600,600,400,mPaint);
 
     }
 }

@@ -1,51 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dip"
-        android:layout_alignParentBottom="true"
-        android:background="#B0C4DE"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"/>
-
-        <ImageView
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"/>
-
-        <ImageView
-            android:layout_width="0dip"
-            android:layout_height="90dip"
-            android:layout_gravity="bottom"
-            android:layout_weight="1.0"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"/>
-
-        <ImageView
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"/>
-
-        <ImageView
-            android:layout_width="0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"/>
-    </LinearLayout>
-</RelativeLayout>
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello world !"/>
+</LinearLayout>

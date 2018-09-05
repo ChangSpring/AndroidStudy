@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -23,6 +24,8 @@ import java.io.InputStream;
 
 public class LargeTranslationImageView extends View {
 
+    private Matrix mMatrix;
+    private Bitmap mRectBitmap;
     private BitmapRegionDecoder mDecoder;
     private int mImageWidth, mImageHeight;
     private int mViewWidth, mViewHeight;
@@ -44,12 +47,13 @@ public class LargeTranslationImageView extends View {
     public LargeTranslationImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mRect.set(0, 0, 500, 500);
         mRect.left = 0;
         mRect.top = 0;
 
         mViewWidth = 1440;
         mViewHeight = 2464;
+
+        mMatrix = new Matrix();
     }
 
     public void startHorizontalTranslateAnimation() {
@@ -59,7 +63,7 @@ public class LargeTranslationImageView extends View {
         }
 
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
-        valueAnimator.setDuration(10000);
+        valueAnimator.setDuration(100000);
         valueAnimator.start();
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -68,6 +72,7 @@ public class LargeTranslationImageView extends View {
                 mRect.left = (int) (mImageWidth * value);
                 checkRectLeft();
                 mRect.right = mRect.left + mViewWidth;
+                mRect.bottom = mViewHeight;
 
                 postInvalidate();
             }
@@ -82,6 +87,11 @@ public class LargeTranslationImageView extends View {
             BitmapFactory.decodeStream(inputStream, null, options);
             mImageWidth = options.outWidth;
             mImageHeight = options.outHeight;
+//            options.inJustDecodeBounds = false;
+//            Bitmap bitmap = BitmapFactory.decodeStream(inputStream,null,options);
+//            Matrix matrix = new Matrix();
+//            matrix.postScale(mViewHeight/mImageHeight,mViewHeight/mImageHeight);
+//            Bitmap.createBitmap(bitmap,0,0,mImageWidth,mImageHeight,matrix,true);
 
             Logger.i("image width = " + mImageWidth + " image height = " + mImageHeight);
 
@@ -121,7 +131,10 @@ public class LargeTranslationImageView extends View {
         super.onDraw(canvas);
 
         Bitmap bitmap = mDecoder.decodeRegion(mRect, mOptions);
-        canvas.drawBitmap(bitmap, 0, 0, null);
+        mMatrix.postScale(mViewHeight / mImageHeight, mViewHeight / mImageHeight);
+        Bitmap scaleBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),bitmap.getHeight(), mMatrix, true);
+        canvas.drawBitmap(scaleBitmap, 0, 0, null);
+        scaleBitmap.recycle();
     }
 
     @Override
