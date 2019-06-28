@@ -1,111 +1,94 @@
 package com.alfred.androidstudy;
 
-import android.content.Intent;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+    //    @BindView(R.id.checkbox)
+//    CheckBox checkBox;
     @BindView(R.id.button)
     Button button;
 
+    @BindView(R.id.view_container)
+    TopToBottomFinishLayout viewContainer;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            try {
-                Thread.sleep(1000 * 10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    };
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Log.i(TAG,"onCreate");
-
         ButterKnife.bind(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,PdfPreviewActivity.class));
-//                hello();
+                showView();
             }
         });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerViewAdapter());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG,"OnStart");
+    private void showView() {
+        int viewHeight = viewContainer.getHeight();
+
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(viewContainer, "translationY", viewHeight, 0);
+        objectAnimator.setDuration(2000);
+        objectAnimator.start();
+
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG,"onRestart");
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<MyViewHolder> {
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_layout, viewGroup, false);
+            return new MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+
+            myViewHolder.textView.setText("Hello World !!!");
+        }
+
+        @Override
+        public int getItemCount() {
+            return 20;
+        }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG,"onPause");
+    private class MyViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView textView;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textView = (TextView) itemView.findViewById(android.R.id.text1);
+        }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG,"onStop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG,"onDestory");
-    }
-
-    private void hello() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
-
-//                Looper.prepare();
-//                Handler handler = new Handler() {
-//                    @Override
-//                    public void handleMessage(Message msg) {
-//                        super.handleMessage(msg);
-//                        Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                };
-//                handler.sendEmptyMessage(1);
-//                Looper.loop();
-            }
-        }).start();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG,"onResume");
-
-
-//        handler.sendEmptyMessageDelayed(0, 3000);
-    }
 }

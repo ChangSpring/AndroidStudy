@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="爱车爱分享"
+        android:ic_hot_employer_text="爱车爱分享"
         android:textSize="16sp"/>-->
 
 <!--    <com.alfred.androidstudy.widget.HorizontalScrollImageView

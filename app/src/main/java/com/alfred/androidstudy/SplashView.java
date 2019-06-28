@@ -139,7 +139,7 @@ public class SplashView extends View {
 //        canvas.drawCircle(mWidth / 2, 500, 400, mBgCirclePaint);
 //        mBgCircleRect.set(mWidth / 2 - 400 + 10, 100 + 10, mWidth / 2 + 400 - 10, 400 + 500 - 10);
 //        canvas.drawArc(mBgCircleRect, mStartAngle - 90, mSweepAngle, false, mArcPaint);
-//test
+//checkbox
 //        mBgCircleRect.set(mWidth / 2 - 400 + 10, 100 + 10, mWidth / 2 + 400 - 10, 400 + 500 - 10);
 //        canvas.drawArc(mBgCircleRect, -90, -148, false, mArcPaint);
 

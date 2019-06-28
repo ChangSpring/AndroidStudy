@@ -1,9 +1,11 @@
 package com.alfred.androidstudy;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
@@ -27,9 +29,16 @@ public class PdfPreviewActivity extends Activity {
         setContentView(R.layout.activity_pdf_preview);
         Log.i(TAG,"onCreate");
 
-
         ButterKnife.bind(this);
 
+
+        mPdfView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PdfPreviewActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

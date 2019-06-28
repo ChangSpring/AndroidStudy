@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/startred"
     android:orientation="vertical">
+
+
+    <!--    <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:button="@drawable/checkbox"
+            android:paddingLeft="10dp"
+            android:text="Hello World !"
+            android:textColor="@color/text_color"/>-->
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hello world !"/>
-</LinearLayout>
+        android:text="Test"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000">
+
+        <com.alfred.androidstudy.TopToBottomFinishLayout
+            android:id="@+id/view_container"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.alfred.androidstudy.TopToBottomFinishLayout>
+
+    </FrameLayout>
+
+
+</FrameLayout>

@@ -35,7 +35,7 @@ public class HorizontalScrollImageView extends AppCompatImageView {
     public HorizontalScrollImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.test);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.checkbox);
 
         Log.i("Size", "widht = " + mBitmap.getWidth() + "  " + mBitmap.getHeight());
 
