@@ -154,7 +154,7 @@ public class TestActivity extends BaseActivity {
     }
 
 
-    //    String number = cur.getString(cur.getColumnIndex("想获得的属性")); //获取方法
+    //    String number = cur.getString(cur.getColumnIndex("想获得的属性")); //获取方法 a
 
     /**
      * sms主要结构：
