@@ -155,6 +155,7 @@ public class TestActivity extends BaseActivity {
 
 
     //    String number = cur.getString(cur.getColumnIndex("想获得的属性")); //获取方法
+
     /**
      * sms主要结构：
      *  _id：短信序号，如100
