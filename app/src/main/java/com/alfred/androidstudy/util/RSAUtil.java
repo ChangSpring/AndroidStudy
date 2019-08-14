@@ -1,21 +1,14 @@
 package com.alfred.androidstudy.util;
 
-/**
- * Created by Alfred on 2016/12/8.
- */
+import android.util.Base64;
 
-
+import javax.crypto.Cipher;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -23,11 +16,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.Cipher;
-
 /**
- * @author Mr.Zheng
- * @date 2014年8月22日 下午1:44:23
+ * Created by Alfred on 2016/12/8.
  */
 public final class RSAUtil {
     private static String RSA = "RSA";
@@ -45,7 +35,7 @@ public final class RSAUtil {
      * 随机生成RSA密钥对
      *
      * @param keyLength 密钥长度，范围：512～2048<br>
-     *                  一般1024
+     * 一般1024
      * @return
      */
     public static KeyPair generateRSAKeyPair(int keyLength) {
@@ -63,18 +53,20 @@ public final class RSAUtil {
      * 用公钥加密 <br>
      * 每次加密的字节数，不能超过密钥的长度值减去11
      *
-     * @param data      需加密数据的byte数据
+     * @param data 需加密数据的byte数据
      * @param publicKey 公钥
      * @return 加密后的byte型数据
      */
-    public static byte[] encryptData(byte[] data, PublicKey publicKey) {
+    public static String encryptData(String data, PublicKey publicKey) {
         try {
             //加密数据
-            Cipher cipher = Cipher.getInstance(RSA);
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             // 编码前设定编码方式及密钥
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-            // 传入编码数据并返回编码结果
-            return cipher.doFinal(data);
+            byte[] output = cipher.doFinal(data.getBytes());
+            // 必须先encode成 byte[]，再转成encodeToString，否则服务器解密会失败
+            byte[] encode = Base64.encode(output, Base64.DEFAULT);
+            return Base64.encodeToString(encode, Base64.DEFAULT);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -85,15 +77,17 @@ public final class RSAUtil {
      * 用私钥解密
      *
      * @param encryptedData 经过encryptedData()加密返回的byte数据
-     * @param privateKey    私钥
+     * @param privateKey 私钥
      * @return
      */
-    public static byte[] decryptData(byte[] encryptedData, PrivateKey privateKey) {
+    public static String decryptData(String encryptedData, PrivateKey privateKey) {
         try {
-            Cipher cipher = Cipher.getInstance(RSA);
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            return cipher.doFinal(encryptedData);
+            byte[] output = cipher.doFinal(Base64.decode(encryptedData, Base64.DEFAULT));
+            return new String(output);
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
