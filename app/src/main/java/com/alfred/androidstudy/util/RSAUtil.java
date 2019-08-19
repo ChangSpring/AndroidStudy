@@ -3,10 +3,7 @@ package com.alfred.androidstudy.util;
 import android.util.Base64;
 
 import javax.crypto.Cipher;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -21,6 +18,18 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public final class RSAUtil {
     private static String RSA = "RSA";
+    public static final String ECB_PADDING = "RSA/ECB/PKCS1Padding";//加密填充方式
+
+    /**
+     * RSA算法规定：待加密的字节数不能超过密钥的长度值除以8再减去11。
+     * <p>
+     * 而加密后得到密文的字节数，正好是密钥的长度值除以 8。
+     */
+    private static int KEYSIZE = 2048;// 密钥位数
+    private static int RESERVE_BYTES = 11;// 加密block需要预留字节数
+    private static int DECRYPT_BLOCK = KEYSIZE / 8; // 每段解密block数，256 bytes
+    private static int ENCRYPT_BLOCK = DECRYPT_BLOCK - RESERVE_BYTES; // 每段加密block数245bytes
+
 
     /**
      * 随机生成RSA密钥对(默认密钥长度为1024)
@@ -53,14 +62,53 @@ public final class RSAUtil {
      * 用公钥加密 <br>
      * 每次加密的字节数，不能超过密钥的长度值减去11
      *
+     * @param data      需加密数据的byte数据
+     * @param publicKey 公钥
+     * @return 加密后的byte型数据
+     */
+    public static byte[] encryptData(byte[] data, PublicKey publicKey) {
+        try {
+            //加密数据
+            Cipher cipher = Cipher.getInstance(ECB_PADDING);
+            // 编码前设定编码方式及密钥
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            // 传入编码数据并返回编码结果
+            return cipher.doFinal(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 用私钥解密
+     *
+     * @param encryptedData 经过encryptedData()加密返回的byte数据
+     * @param privateKey    私钥
+     * @return
+     */
+    public static byte[] decryptData(byte[] encryptedData, PrivateKey privateKey) {
+        try {
+            Cipher cipher = Cipher.getInstance(ECB_PADDING);
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            return cipher.doFinal(encryptedData);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * 用公钥加密 <br>
+     * 每次加密的字节数，不能超过密钥的长度值减去11
+     *
      * @param data 需加密数据的byte数据
      * @param publicKey 公钥
      * @return 加密后的byte型数据
      */
-    public static String encryptData(String data, PublicKey publicKey) {
+    public static String encryptData2(String data, PublicKey publicKey) {
         try {
             //加密数据
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            Cipher cipher = Cipher.getInstance(ECB_PADDING);
             // 编码前设定编码方式及密钥
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             byte[] output = cipher.doFinal(data.getBytes());
@@ -80,12 +128,12 @@ public final class RSAUtil {
      * @param privateKey 私钥
      * @return
      */
-    public static String decryptData(String encryptedData, PrivateKey privateKey) {
+    public static String decryptData2(String encryptedData, PrivateKey privateKey) {
         try {
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            Cipher cipher = Cipher.getInstance(ECB_PADDING);
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             byte[] output = cipher.doFinal(Base64.decode(encryptedData, Base64.DEFAULT));
-            return new String(output);
+            return Base64.encodeToString(output, Base64.DEFAULT);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -93,15 +141,73 @@ public final class RSAUtil {
     }
 
     /**
+     * 分块加密
+     *
+     * @param data
+     * @param key
+     */
+    public static byte[] encryptWithPublicKeyBlock(byte[] data, byte[] key) throws Exception {
+        int blockCount = (data.length / ENCRYPT_BLOCK);
+
+        if ((data.length % ENCRYPT_BLOCK) != 0) {
+            blockCount += 1;
+        }
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(blockCount * ENCRYPT_BLOCK);
+        Cipher cipher = Cipher.getInstance(ECB_PADDING);
+        cipher.init(Cipher.ENCRYPT_MODE, getPublicKey(key));
+
+        for (int offset = 0; offset < data.length; offset += ENCRYPT_BLOCK) {
+            int inputLen = (data.length - offset);
+            if (inputLen > ENCRYPT_BLOCK) {
+                inputLen = ENCRYPT_BLOCK;
+            }
+            byte[] encryptedBlock = cipher.doFinal(data, offset, inputLen);
+            bos.write(encryptedBlock);
+        }
+
+        bos.close();
+        return bos.toByteArray();
+    }
+
+    /**
+     * 分块解密
+     *
+     * @param data
+     * @param key
+     */
+    public static byte[] decryptWithPrivateKeyBlock(byte[] data, byte[] key) throws Exception {
+        int blockCount = (data.length / DECRYPT_BLOCK);
+        if ((data.length % DECRYPT_BLOCK) != 0) {
+            blockCount += 1;
+        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(blockCount * DECRYPT_BLOCK);
+        Cipher cipher = Cipher.getInstance(ECB_PADDING);
+        cipher.init(Cipher.DECRYPT_MODE, getPrivateKey(key));
+        for (int offset = 0; offset < data.length; offset += DECRYPT_BLOCK) {
+            int inputLen = (data.length - offset);
+
+            if (inputLen > DECRYPT_BLOCK) {
+                inputLen = DECRYPT_BLOCK;
+            }
+
+            byte[] decryptedBlock = cipher.doFinal(data, offset, inputLen);
+            bos.write(decryptedBlock);
+        }
+
+        bos.close();
+        return bos.toByteArray();
+    }
+
+
+    /**
      * 通过公钥byte[](publicKey.getEncoded())将公钥还原，适用于RSA算法
      *
      * @param keyBytes
      * @return
-     * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static PublicKey getPublicKey(byte[] keyBytes) throws NoSuchAlgorithmException,
-            InvalidKeySpecException {
+    public static PublicKey getPublicKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(RSA);
         PublicKey publicKey = keyFactory.generatePublic(keySpec);
@@ -113,7 +219,6 @@ public final class RSAUtil {
      *
      * @param keyBytes
      * @return
-     * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
     public static PrivateKey getPrivateKey(byte[] keyBytes) throws NoSuchAlgorithmException,
@@ -130,7 +235,6 @@ public final class RSAUtil {
      * @param modulus
      * @param publicExponent
      * @return
-     * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
     public static PublicKey getPublicKey(String modulus, String publicExponent)
@@ -149,7 +253,6 @@ public final class RSAUtil {
      * @param modulus
      * @param privateExponent
      * @return
-     * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
     public static PrivateKey getPrivateKey(String modulus, String privateExponent)
@@ -166,7 +269,6 @@ public final class RSAUtil {
      * 从字符串中加载公钥
      *
      * @param publicKeyStr 公钥数据字符串
-     * @throws Exception 加载公钥时产生的异常
      */
     public static PublicKey loadPublicKey(String publicKeyStr) throws Exception {
         try {
@@ -189,7 +291,6 @@ public final class RSAUtil {
      *
      * @param privateKeyStr
      * @return
-     * @throws Exception
      */
     public static PrivateKey loadPrivateKey(String privateKeyStr) throws Exception {
         try {
@@ -211,7 +312,6 @@ public final class RSAUtil {
      * 从文件中输入流中加载公钥
      *
      * @param in 公钥输入流
-     * @throws Exception 加载公钥时产生的异常
      */
     public static PublicKey loadPublicKey(InputStream in) throws Exception {
         try {
@@ -227,7 +327,6 @@ public final class RSAUtil {
      * 从文件中加载私钥
      *
      * @return 是否成功
-     * @throws Exception
      */
     public static PrivateKey loadPrivateKey(InputStream in) throws Exception {
         try {
@@ -244,7 +343,6 @@ public final class RSAUtil {
      *
      * @param in
      * @return
-     * @throws IOException
      */
     private static String readKey(InputStream in) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
